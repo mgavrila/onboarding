@@ -1,5 +1,4 @@
 import { z } from "zod";
-import { getDb } from "../../db";
 import { createTRPCRouter, publicProcedure, protectedProcedure } from "../trpc";
 
 export const exampleRouter = createTRPCRouter({
@@ -12,9 +11,9 @@ export const exampleRouter = createTRPCRouter({
     }),
 
   getAll: publicProcedure.query(async ({ ctx }) => {
-    const db = await getDb(ctx.clientPromise);
+    const allUsers = await ctx.prisma.example.findMany();
 
-    return db.collection("users").find({}).toArray();
+    return allUsers;
   }),
 
   getSecretMessage: protectedProcedure.query(() => {
