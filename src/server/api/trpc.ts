@@ -19,7 +19,7 @@ import { type CreateNextContextOptions } from "@trpc/server/adapters/next";
 import { type Session } from "next-auth";
 
 import { getServerAuthSession } from "../auth";
-import clientPromise from "../db";
+import { clientPromise } from "../db";
 
 type CreateContextOptions = {
   session: Session | null;

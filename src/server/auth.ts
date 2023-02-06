@@ -7,7 +7,7 @@ import {
 import DiscordProvider from "next-auth/providers/discord";
 import { env } from "../env/server.mjs";
 import { MongoDBAdapter } from "@next-auth/mongodb-adapter";
-import clientPromise from "./db";
+import { clientPromise } from "./db";
 
 /**
  * Module augmentation for `next-auth` types.
