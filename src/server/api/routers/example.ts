@@ -11,8 +11,11 @@ export const exampleRouter = createTRPCRouter({
       };
     }),
 
-  getAll: publicProcedure.query(({ ctx }) => {
-    return ctx.prisma.example.findMany();
+  getAll: publicProcedure.query(async ({ ctx }) => {
+    const client = await ctx.clientPromise;
+    const db = client.db("onboarding");
+
+    return db.collection("users").find({}).toArray();
   }),
 
   getSecretMessage: protectedProcedure.query(() => {
