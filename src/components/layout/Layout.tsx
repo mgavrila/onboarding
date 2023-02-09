@@ -16,9 +16,9 @@ const MENU_ITEMS = [
     label: "Dashboard",
   },
   {
-    key: "/dashboard/account",
+    key: "/timesheet",
     icon: FieldTimeOutlined,
-    label: "Account",
+    label: "Timesheet",
   },
 ];
 
@@ -81,6 +81,7 @@ const CustomLayout: React.FC<{ children: React.ReactElement }> = ({
           style={{
             height: "100%",
             borderRight: 0,
+            paddingTop: "8px",
           }}
           items={items}
           theme="dark"
