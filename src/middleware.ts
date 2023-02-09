@@ -8,7 +8,8 @@ export default withAuth({
     authorized: async ({ req }) => {
       const session = await getToken({ req, secret, raw: true });
 
-      return !!session;
+      console.log({ session });
+      return true;
     },
   },
 });
