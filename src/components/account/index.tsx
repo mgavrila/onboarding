@@ -2,7 +2,7 @@ import React from "react";
 import { Avatar, Dropdown, Button, Typography } from "antd";
 import { UserOutlined } from "@ant-design/icons";
 import type { MenuProps } from "antd";
-import { signOut } from "next-auth/react";
+import { signOut, useSession } from "next-auth/react";
 
 const items: MenuProps["items"] = [
   {
@@ -20,6 +20,10 @@ const items: MenuProps["items"] = [
 ];
 
 const Account: React.FC = () => {
+  const session = useSession();
+
+  const { data } = session;
+
   return (
     <Dropdown menu={{ items }} trigger={["click"]} placement="bottomLeft">
       <Button
@@ -40,12 +44,15 @@ const Account: React.FC = () => {
               alignItems: "center",
             }}
             gap={0}
-            size={52}
+            size={40}
+            src={data?.user?.image ?? null}
             icon={<UserOutlined />}
           />
         }
       >
-        <Typography style={{ color: "white" }}>Account</Typography>
+        <Typography style={{ color: "white", marginLeft: "8px" }}>
+          {data?.user?.name ?? "Account"}
+        </Typography>
       </Button>
     </Dropdown>
   );

@@ -35,7 +35,8 @@ const layoutStyle: React.CSSProperties = {
 };
 
 const headerStyle: React.CSSProperties = {
-  textAlign: "center",
+  display: "flex",
+  justifyContent: "flex-end",
   color: "#fff",
   height: 64,
   paddingInline: 50,
@@ -47,11 +48,12 @@ const contentStyle: React.CSSProperties = {
   minHeight: 120,
   lineHeight: "120px",
   color: "#fff",
-  backgroundColor: "#108ee9",
+  backgroundColor: "#00274d",
 };
 
 const siderStyle: React.CSSProperties = {
   lineHeight: "120px",
+  background: "#231942",
 };
 
 const CustomLayout: React.FC<{ children: React.ReactElement }> = ({
@@ -76,7 +78,10 @@ const CustomLayout: React.FC<{ children: React.ReactElement }> = ({
         <Menu
           mode="inline"
           defaultSelectedKeys={[pathname]}
-          style={{ height: "100%", borderRight: 0 }}
+          style={{
+            height: "100%",
+            borderRight: 0,
+          }}
           items={items}
           theme="dark"
           onClick={handleClick}
@@ -84,10 +89,7 @@ const CustomLayout: React.FC<{ children: React.ReactElement }> = ({
       </Sider>
       <Layout>
         <Header style={headerStyle}>
-          <div className="center flex w-full flex-row items-center justify-between">
-            Timekeep
-            <Account />
-          </div>
+          <Account />
         </Header>
         <Content style={contentStyle}>{children}</Content>
       </Layout>
