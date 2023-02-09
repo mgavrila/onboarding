@@ -6,8 +6,8 @@ import {
 } from "next-auth";
 import DiscordProvider from "next-auth/providers/discord";
 import { env } from "../env/server.mjs";
-import { MongoDBAdapter } from "@next-auth/mongodb-adapter";
-import { clientPromise } from "./db";
+import { PrismaAdapter } from "@next-auth/prisma-adapter";
+import { prisma } from "./db";
 
 /**
  * Module augmentation for `next-auth` types.
@@ -47,7 +47,7 @@ export const authOptions: NextAuthOptions = {
       return session;
     },
   },
-  adapter: MongoDBAdapter(clientPromise),
+  adapter: PrismaAdapter(prisma),
   providers: [
     DiscordProvider({
       clientId: env.DISCORD_CLIENT_ID,
