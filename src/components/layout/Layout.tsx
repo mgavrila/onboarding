@@ -3,8 +3,11 @@ import { Menu, Layout } from "antd";
 import type { MenuProps } from "antd";
 import { FieldTimeOutlined, DashboardOutlined } from "@ant-design/icons";
 import { useRouter } from "next/navigation";
+import { useRouter as useNextRouter } from "next/router";
 
-const { Header, Footer, Sider, Content } = Layout;
+import Account from "../account";
+
+const { Header, Sider, Content } = Layout;
 
 const MENU_ITEMS = [
   {
@@ -37,7 +40,6 @@ const headerStyle: React.CSSProperties = {
   height: 64,
   paddingInline: 50,
   lineHeight: "64px",
-  backgroundColor: "#7dbcea",
 };
 
 const contentStyle: React.CSSProperties = {
@@ -52,16 +54,11 @@ const siderStyle: React.CSSProperties = {
   lineHeight: "120px",
 };
 
-const footerStyle: React.CSSProperties = {
-  textAlign: "center",
-  color: "#fff",
-  backgroundColor: "#7dbcea",
-};
-
 const CustomLayout: React.FC<{ children: React.ReactElement }> = ({
   children,
 }) => {
   const [collapsed, setCollapsed] = useState(false);
+  const { pathname } = useNextRouter();
   const router = useRouter();
 
   const handleClick: MenuProps["onClick"] = (props) => {
@@ -78,7 +75,7 @@ const CustomLayout: React.FC<{ children: React.ReactElement }> = ({
       >
         <Menu
           mode="inline"
-          defaultSelectedKeys={["/dashboard"]}
+          defaultSelectedKeys={[pathname]}
           style={{ height: "100%", borderRight: 0 }}
           items={items}
           theme="dark"
@@ -86,9 +83,13 @@ const CustomLayout: React.FC<{ children: React.ReactElement }> = ({
         />
       </Sider>
       <Layout>
-        <Header style={headerStyle}>Header</Header>
+        <Header style={headerStyle}>
+          <div className="center flex w-full flex-row items-center justify-between">
+            Timekeep
+            <Account />
+          </div>
+        </Header>
         <Content style={contentStyle}>{children}</Content>
-        <Footer style={footerStyle}>Footer</Footer>
       </Layout>
     </Layout>
   );
