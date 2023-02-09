@@ -4,7 +4,6 @@ import type { AppProps } from "next/app";
 import { type AppType } from "next/app";
 import { type Session } from "next-auth";
 import { SessionProvider } from "next-auth/react";
-import { ChakraProvider } from "@chakra-ui/react";
 import { api } from "../utils/api";
 
 import "../styles/globals.css";
@@ -25,11 +24,9 @@ const MyApp: AppType<{ session: Session | null }> = ({
   const getLayout = Component.getLayout ?? ((page) => page);
 
   return (
-    <ChakraProvider>
-      <SessionProvider session={session as Session | null}>
-        {getLayout(<Component {...pageProps} />)}
-      </SessionProvider>
-    </ChakraProvider>
+    <SessionProvider session={session as Session | null}>
+      {getLayout(<Component {...pageProps} />)}
+    </SessionProvider>
   );
 };
 
