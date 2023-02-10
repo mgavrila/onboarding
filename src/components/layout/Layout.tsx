@@ -1,7 +1,11 @@
 import React, { useState } from "react";
 import { Menu, Layout } from "antd";
 import type { MenuProps } from "antd";
-import { FieldTimeOutlined, DashboardOutlined } from "@ant-design/icons";
+import {
+  FieldTimeOutlined,
+  DashboardOutlined,
+  ProjectOutlined,
+} from "@ant-design/icons";
 import { useRouter } from "next/navigation";
 import { useRouter as useNextRouter } from "next/router";
 
@@ -14,6 +18,11 @@ const MENU_ITEMS = [
     key: "/dashboard",
     icon: DashboardOutlined,
     label: "Dashboard",
+  },
+  {
+    key: "/projects",
+    icon: ProjectOutlined,
+    label: "Projects",
   },
   {
     key: "/timesheet",
