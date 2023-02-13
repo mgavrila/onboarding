@@ -55,6 +55,8 @@ model User {
     image         String?
     accounts      Account[]
     sessions      Session[]
+    projectIDs    String[]  @db.ObjectId
+    projects      Project[] @relation(fields: [projectIDs], references: [id])
 }
 
 model VerificationToken {
@@ -64,4 +66,13 @@ model VerificationToken {
     expires    DateTime
 
     @@unique([identifier, token])
+}
+
+model Project {
+    id          String   @id @default(auto()) @map("_id") @db.ObjectId
+    projectName String
+    userIDs     String[] @db.ObjectId
+    members     User[]   @relation(fields: [userIDs], references: [id])
+    image       String?
+    visibility  String
 }
