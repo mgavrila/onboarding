@@ -215,6 +215,7 @@ const NewProject: NextPageWithLayout = () => {
                       className="flex items-center justify-center text-[#B20000] hover:text-[#ECECEF]"
                       icon={<DeleteOutlined />}
                       type="ghost"
+                      onClick={() => onDeleteMember(member.id)}
                     />
                   </div>
                 ))}
