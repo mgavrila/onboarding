@@ -54,24 +54,19 @@ const MembersDrawer: React.FC<MembersDrawerType> = ({
                 style={{ paddingLeft: 0, paddingRight: 0 }}
                 key={item.id}
                 actions={[
-                  memberExist && (
-                    <Button
-                      key={`delete-${item.id}`}
-                      type="ghost"
-                      shape="circle"
-                      className="flex items-center justify-center text-[#B20000] hover:text-[#00274d]"
-                      icon={<DeleteOutlined />}
-                      onClick={() => onDeleteMember(item.id)}
-                    />
-                  ),
+                  null,
                   <Button
+                    style={{ color: memberExist ? "#B20000" : "" }}
                     key={`add-${item.id}`}
                     type="ghost"
                     shape="circle"
-                    className="flex items-center justify-center hover:text-[#00274d] disabled:text-[#d3d3d3]"
-                    icon={<PlusCircleOutlined />}
-                    onClick={() => onAddMember(item)}
-                    disabled={memberExist}
+                    className="flex items-center justify-center"
+                    icon={
+                      memberExist ? <DeleteOutlined /> : <PlusCircleOutlined />
+                    }
+                    onClick={() =>
+                      memberExist ? onDeleteMember(item.id) : onAddMember(item)
+                    }
                   />,
                 ]}
               >

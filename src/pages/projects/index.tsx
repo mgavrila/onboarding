@@ -1,5 +1,5 @@
 import type { NextPageWithLayout } from "../_app";
-import { Col, Row, Divider, Card, Typography, Space } from "antd";
+import { Col, Row, Divider, Card, Typography, Spin } from "antd";
 import Layout from "../../components/layout/Layout";
 import CreateProject from "../../components/projects/CreateProject";
 import { api } from "../../utils/api";
@@ -8,10 +8,18 @@ import { useSession } from "next-auth/react";
 const Projects: NextPageWithLayout = () => {
   const { data: sessionData } = useSession();
 
-  const { data: allProjects } = api.project.getAll.useQuery(
+  const { data: allProjects, isLoading } = api.project.getAll.useQuery(
     undefined, // no input
     { enabled: sessionData?.user !== undefined }
   );
+
+  if (isLoading) {
+    return (
+      <div className="flex h-full w-full items-center justify-center">
+        <Spin size="large" />
+      </div>
+    );
+  }
 
   return (
     <div className="flex w-full flex-col py-6 px-16">
