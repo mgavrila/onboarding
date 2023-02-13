@@ -1,5 +1,6 @@
 import { useState } from "react";
 import type { NextPageWithLayout } from "../../_app";
+import type { RadioChangeEvent } from "antd";
 import {
   Col,
   Row,
@@ -10,7 +11,6 @@ import {
   Radio,
   Tooltip,
   Button,
-  Drawer,
 } from "antd";
 import Layout from "../../../components/layout/Layout";
 import {
@@ -20,25 +20,18 @@ import {
   PlusCircleOutlined,
 } from "@ant-design/icons";
 import { useRouter } from "next/navigation";
-
-const DUMMY_MEMBERS = [
-  {
-    id: 1,
-    name: "Member 1",
-  },
-  {
-    id: 2,
-    name: "Member 2",
-  },
-  {
-    id: 3,
-    name: "Member 3",
-  },
-];
+import MembersDrawer from "../../../components/projects/MembersDrawer";
+import type { MemberType } from "../../../typings/types";
+import { api } from "../../../utils/api";
 
 const NewProject: NextPageWithLayout = () => {
   const router = useRouter();
   const [open, setOpen] = useState(false);
+  const [members, setMembers] = useState<MemberType[]>([]);
+  const [projectName, setProjectName] = useState("");
+  const [projectVisibility, setProjectVisibility] = useState("public");
+  const addProjectMutation = api.project.addProject.useMutation();
+  const [form] = Form.useForm();
 
   const onCancel = () => {
     router.back();
@@ -50,6 +43,33 @@ const NewProject: NextPageWithLayout = () => {
 
   const onClose = () => {
     setOpen(false);
+  };
+
+  const onAddMember = (member: MemberType) => {
+    setMembers((prevState) => [...prevState, member]);
+  };
+
+  const onDeleteMember = (memberId: string) => {
+    setMembers((prevState) =>
+      prevState.filter((member) => member.id !== memberId)
+    );
+  };
+
+  const onChangeVisibility = (evt: RadioChangeEvent) => {
+    setProjectVisibility(evt.target.value as string);
+  };
+
+  const submitForm = () => {
+    addProjectMutation.mutate({
+      name: projectName,
+      members: members.map((member) => member.id),
+      visibility: projectVisibility,
+    });
+
+    form.resetFields();
+    setProjectName("");
+    setMembers([]);
+    setProjectVisibility("public");
   };
 
   return (
@@ -83,9 +103,11 @@ const NewProject: NextPageWithLayout = () => {
 
           <Col span={15} style={{ textAlign: "left" }}>
             <Form
+              form={form}
               layout="vertical"
               labelCol={{ span: 8 }}
               wrapperCol={{ span: 8 }}
+              onFinish={submitForm}
             >
               <Form.Item
                 label={<label style={{ color: "#ECECEF" }}>Project Name</label>}
@@ -97,7 +119,11 @@ const NewProject: NextPageWithLayout = () => {
                   },
                 ]}
               >
-                <Input />
+                <Input
+                  placeholder="Write name here"
+                  value={projectName}
+                  onChange={(evt) => setProjectName(evt.target.value)}
+                />
               </Form.Item>
 
               <Form.Item
@@ -127,6 +153,8 @@ const NewProject: NextPageWithLayout = () => {
                 }
               >
                 <Radio.Group
+                  value={projectVisibility}
+                  onChange={onChangeVisibility}
                   options={[
                     {
                       label: (
@@ -166,7 +194,7 @@ const NewProject: NextPageWithLayout = () => {
                   />
                 </div>
 
-                {DUMMY_MEMBERS.map((member) => (
+                {members.map((member) => (
                   <div
                     key={member.id}
                     className="flex items-center justify-between border border-x-0 border-t-0 border-[#ECECEF]"
@@ -179,7 +207,7 @@ const NewProject: NextPageWithLayout = () => {
                         margin: 0,
                       }}
                     >
-                      {member.name}
+                      {member.name} - {member.email}
                     </Typography.Paragraph>
 
                     <Button
@@ -194,7 +222,10 @@ const NewProject: NextPageWithLayout = () => {
 
               <Form.Item style={{ margin: 0 }}>
                 <div className="justify-left flex h-full w-full flex-row items-center gap-4">
-                  <Button className="flex items-center justify-center text-[#ECECEF]">
+                  <Button
+                    className="flex items-center justify-center text-[#ECECEF]"
+                    htmlType="submit"
+                  >
                     Create
                   </Button>
                   <Button
@@ -210,9 +241,13 @@ const NewProject: NextPageWithLayout = () => {
         </Row>
       </div>
 
-      <Drawer title="Members" placement="right" onClose={onClose} open={open}>
-        <p>Some contents...</p>
-      </Drawer>
+      <MembersDrawer
+        open={open}
+        onClose={onClose}
+        onAddMember={onAddMember}
+        onDeleteMember={onDeleteMember}
+        members={members}
+      />
     </>
   );
 };
