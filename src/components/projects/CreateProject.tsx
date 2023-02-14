@@ -1,8 +1,12 @@
 import React from "react";
-import { Typography, Button } from "antd";
+import { Typography, Button, theme } from "antd";
 import { useRouter } from "next/navigation";
 
+const { useToken } = theme;
+
 const CreateProject: React.FC = () => {
+  const { token } = useToken();
+
   const router = useRouter();
 
   const onNewProject = () => {
@@ -11,11 +15,14 @@ const CreateProject: React.FC = () => {
 
   return (
     <div className="flex w-full flex-row items-center justify-between">
-      <Typography.Title level={3} style={{ color: "#ECECEF" }}>
+      <Typography.Title level={3} style={{ color: token.colorTextSecondary }}>
         Projects
       </Typography.Title>
 
-      <Button className="text-[#ECECEF]" onClick={onNewProject}>
+      <Button
+        onClick={onNewProject}
+        className={`text-[${token.colorTextSecondary}]`}
+      >
         New Project
       </Button>
     </div>

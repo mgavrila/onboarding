@@ -1,12 +1,15 @@
 import type { NextPageWithLayout } from "../_app";
-import { Col, Row, Divider, Card, Typography, Spin } from "antd";
+import { Col, Row, Divider, Card, Typography, Spin, theme } from "antd";
 import Layout from "../../components/layout/Layout";
 import CreateProject from "../../components/projects/CreateProject";
 import { api } from "../../utils/api";
 import { useSession } from "next-auth/react";
 
+const { useToken } = theme;
+
 const Projects: NextPageWithLayout = () => {
   const { data: sessionData } = useSession();
+  const { token } = useToken();
 
   const { data: allProjects, isLoading } = api.project.getAll.useQuery(
     undefined, // no input
@@ -26,7 +29,12 @@ const Projects: NextPageWithLayout = () => {
       <Row>
         <CreateProject />
       </Row>
-      <Divider style={{ backgroundColor: "#ffffff", margin: "12px 0px" }} />
+      <Divider
+        style={{
+          backgroundColor: token.colorTextSecondary,
+          margin: "12px 0px",
+        }}
+      />
       <Row gutter={[16, 16]}>
         {allProjects?.map((project) => (
           <Col key={project?.id}>

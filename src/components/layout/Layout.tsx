@@ -46,7 +46,6 @@ const layoutStyle: React.CSSProperties = {
 const headerStyle: React.CSSProperties = {
   display: "flex",
   justifyContent: "flex-end",
-  color: "#fff",
   height: 64,
   paddingInline: 50,
   lineHeight: "64px",
@@ -56,13 +55,11 @@ const contentStyle: React.CSSProperties = {
   textAlign: "center",
   minHeight: 120,
   lineHeight: "120px",
-  color: "#fff",
   backgroundColor: "#00274d",
 };
 
 const siderStyle: React.CSSProperties = {
   lineHeight: "120px",
-  background: "#231942",
 };
 
 const CustomLayout: React.FC<{ children: React.ReactElement }> = ({
