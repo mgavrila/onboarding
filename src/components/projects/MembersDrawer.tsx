@@ -1,9 +1,11 @@
 import React, { useState } from "react";
 import { useSession } from "next-auth/react";
-import { Drawer, Avatar, List, Button, Input } from "antd";
+import { Drawer, Avatar, List, Button, Input, theme } from "antd";
 import { api } from "../../utils/api";
 import { PlusCircleOutlined, DeleteOutlined } from "@ant-design/icons";
 import type { MemberType } from "../../typings/types";
+
+const { useToken } = theme;
 
 type MembersDrawerType = {
   onDeleteMember: (memberId: string) => void;
@@ -21,6 +23,7 @@ const MembersDrawer: React.FC<MembersDrawerType> = ({
   members,
 }) => {
   const { data: sessionData } = useSession();
+  const { token } = useToken();
 
   const { data: allUsers } = api.user.getAll.useQuery(
     undefined, // no input
@@ -56,7 +59,11 @@ const MembersDrawer: React.FC<MembersDrawerType> = ({
                 actions={[
                   null,
                   <Button
-                    style={{ color: memberExist ? "#B20000" : "" }}
+                    style={{
+                      color: memberExist
+                        ? token.colorError
+                        : token.colorPrimaryText,
+                    }}
                     key={`add-${item.id}`}
                     type="ghost"
                     shape="circle"

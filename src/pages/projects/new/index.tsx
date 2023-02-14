@@ -11,6 +11,7 @@ import {
   Radio,
   Tooltip,
   Button,
+  theme,
 } from "antd";
 import Layout from "../../../components/layout/Layout";
 import {
@@ -24,8 +25,12 @@ import MembersDrawer from "../../../components/projects/MembersDrawer";
 import type { MemberType } from "../../../typings/types";
 import { api } from "../../../utils/api";
 
+const { useToken } = theme;
+
 const NewProject: NextPageWithLayout = () => {
   const router = useRouter();
+  const { token } = useToken();
+
   const [open, setOpen] = useState(false);
   const [members, setMembers] = useState<MemberType[]>([]);
   const [projectName, setProjectName] = useState("");
@@ -82,12 +87,16 @@ const NewProject: NextPageWithLayout = () => {
                 style={{
                   fontSize: "76px",
                   marginBottom: "8px",
+                  color: token.colorTextSecondary,
                 }}
               />
-              <Typography.Title level={3} style={{ color: "#ECECEF" }}>
+              <Typography.Title
+                level={3}
+                style={{ color: token.colorTextSecondary }}
+              >
                 Create new project
               </Typography.Title>
-              <Typography.Paragraph style={{ color: "#ECECEF" }}>
+              <Typography.Paragraph style={{ color: token.colorTextSecondary }}>
                 Create a blank project to plan your work, add members, and many
                 more things.
               </Typography.Paragraph>
@@ -96,7 +105,10 @@ const NewProject: NextPageWithLayout = () => {
 
           <Col span={1}>
             <Divider
-              style={{ backgroundColor: "#ECECEF", height: "100%" }}
+              style={{
+                backgroundColor: token.colorTextSecondary,
+                height: "100%",
+              }}
               type="vertical"
             />
           </Col>
@@ -110,7 +122,11 @@ const NewProject: NextPageWithLayout = () => {
               onFinish={submitForm}
             >
               <Form.Item
-                label={<label style={{ color: "#ECECEF" }}>Project Name</label>}
+                label={
+                  <label style={{ color: token.colorTextSecondary }}>
+                    Project Name
+                  </label>
+                }
                 name="projectName"
                 rules={[
                   {
@@ -129,13 +145,17 @@ const NewProject: NextPageWithLayout = () => {
               <Form.Item
                 style={{ textAlign: "left" }}
                 label={
-                  <div className="flex flex-row items-center gap-2 text-[#ECECEF]">
+                  <div
+                    className={`flex flex-row items-center gap-2 text-[${token.colorTextSecondary}]`}
+                  >
                     <label>Visibility Level</label>
 
                     <Tooltip
                       placement="top"
                       title={
-                        <div className="flex flex-col text-[#ECECEF]">
+                        <div
+                          className={`flex flex-col text-[${token.colorTextSecondary}]`}
+                        >
                           <label>
                             <span className="font-bold">Private</span> - visible
                             to members only.
@@ -158,7 +178,9 @@ const NewProject: NextPageWithLayout = () => {
                   options={[
                     {
                       label: (
-                        <div className="flex flex-row items-center gap-2 text-[#ECECEF]">
+                        <div
+                          className={`flex flex-row items-center gap-2 text-[${token.colorTextSecondary}]`}
+                        >
                           <label>Private</label>
                         </div>
                       ),
@@ -166,7 +188,9 @@ const NewProject: NextPageWithLayout = () => {
                     },
                     {
                       label: (
-                        <div className="flex flex-row items-center gap-2 text-[#ECECEF]">
+                        <div
+                          className={`flex flex-row items-center gap-2 text-[${token.colorTextSecondary}]`}
+                        >
                           <label>Public</label>
                         </div>
                       ),
@@ -180,7 +204,7 @@ const NewProject: NextPageWithLayout = () => {
                 <div className="flex w-full items-center gap-1">
                   <Typography.Title
                     level={3}
-                    style={{ color: "#ECECEF", marginBottom: 6 }}
+                    style={{ marginBottom: 6, color: token.colorTextSecondary }}
                   >
                     Members
                   </Typography.Title>
@@ -188,7 +212,7 @@ const NewProject: NextPageWithLayout = () => {
                   <Button
                     type="ghost"
                     shape="circle"
-                    className="flex items-center justify-center text-[#ECECEF]"
+                    className={`flex items-center justify-center text-[${token.colorTextSecondary}]`}
                     onClick={showDrawer}
                     icon={<PlusCircleOutlined />}
                   />
@@ -197,14 +221,14 @@ const NewProject: NextPageWithLayout = () => {
                 {members.map((member) => (
                   <div
                     key={member.id}
-                    className="flex items-center justify-between border border-x-0 border-t-0 border-[#ECECEF]"
+                    className={`flex items-center justify-between border border-x-0 border-t-0 border-[${token.colorTextSecondary}]`}
                   >
                     <Typography.Paragraph
                       className="py-4"
                       style={{
-                        color: "#ECECEF",
                         textAlign: "left",
                         margin: 0,
+                        color: token.colorTextSecondary,
                       }}
                     >
                       {member.name} - {member.email}
@@ -212,7 +236,8 @@ const NewProject: NextPageWithLayout = () => {
 
                     <Button
                       shape="circle"
-                      className="flex items-center justify-center text-[#B20000] hover:text-[#ECECEF]"
+                      style={{ color: token.colorError }}
+                      className={`flex items-center justify-center`}
                       icon={<DeleteOutlined />}
                       type="ghost"
                       onClick={() => onDeleteMember(member.id)}
@@ -224,13 +249,13 @@ const NewProject: NextPageWithLayout = () => {
               <Form.Item style={{ margin: 0 }}>
                 <div className="justify-left flex h-full w-full flex-row items-center gap-4">
                   <Button
-                    className="flex items-center justify-center text-[#ECECEF]"
+                    className={`flex items-center justify-center text-[${token.colorTextSecondary}]`}
                     htmlType="submit"
                   >
                     Create
                   </Button>
                   <Button
-                    className="flex items-center justify-center text-[#ECECEF]"
+                    className={`flex items-center justify-center text-[${token.colorTextSecondary}]`}
                     onClick={onCancel}
                   >
                     Cancel

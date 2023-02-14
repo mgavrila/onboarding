@@ -1,5 +1,5 @@
 import React from "react";
-import { Avatar, Dropdown, Button, Typography } from "antd";
+import { Avatar, Dropdown, Button, Typography, theme } from "antd";
 import { UserOutlined } from "@ant-design/icons";
 import type { MenuProps } from "antd";
 import { signOut, useSession } from "next-auth/react";
@@ -19,8 +19,11 @@ const items: MenuProps["items"] = [
   },
 ];
 
+const { useToken } = theme;
+
 const Account: React.FC = () => {
   const session = useSession();
+  const { token } = useToken();
 
   const { data } = session;
 
@@ -50,7 +53,9 @@ const Account: React.FC = () => {
           />
         }
       >
-        <Typography style={{ color: "white", marginLeft: "8px" }}>
+        <Typography
+          style={{ marginLeft: "8px", color: token.colorTextSecondary }}
+        >
           {data?.user?.name ?? "Account"}
         </Typography>
       </Button>

@@ -5,7 +5,7 @@ import { type AppType } from "next/app";
 import { type Session } from "next-auth";
 import { SessionProvider } from "next-auth/react";
 import { api } from "../utils/api";
-import { ConfigProvider } from "antd";
+import { ConfigProvider, theme } from "antd";
 
 import "../styles/globals.css";
 
@@ -27,7 +27,18 @@ const MyApp: AppType<{ session: Session | null }> = ({
   return (
     <SessionProvider session={session as Session | null}>
       <ConfigProvider
-        theme={{ components: { Spin: { colorPrimary: "#ffffff" } } }}
+        theme={{
+          token: {
+            colorPrimary: "#196873",
+            colorTextSecondary: "#ECECEF",
+            colorText: "#000000",
+            colorError: "#B20000",
+            colorWhite: "#ffffff",
+          },
+          components: {
+            Spin: { colorPrimary: "#ffffff" },
+          },
+        }}
       >
         {getLayout(<Component {...pageProps} />)}
       </ConfigProvider>
