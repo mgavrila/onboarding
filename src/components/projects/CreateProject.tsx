@@ -21,7 +21,7 @@ const CreateProject: React.FC = () => {
 
       <Button
         onClick={onNewProject}
-        className={`text-[${token.colorTextSecondary}]`}
+        style={{ color: token.colorTextSecondary }}
       >
         New Project
       </Button>
