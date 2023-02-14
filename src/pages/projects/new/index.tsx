@@ -146,7 +146,8 @@ const NewProject: NextPageWithLayout = () => {
                 style={{ textAlign: "left" }}
                 label={
                   <div
-                    className={`flex flex-row items-center gap-2 text-[${token.colorTextSecondary}]`}
+                    style={{ color: token.colorTextSecondary }}
+                    className="flex flex-row items-center gap-2"
                   >
                     <label>Visibility Level</label>
 
@@ -154,7 +155,8 @@ const NewProject: NextPageWithLayout = () => {
                       placement="top"
                       title={
                         <div
-                          className={`flex flex-col text-[${token.colorTextSecondary}]`}
+                          style={{ color: token.colorTextSecondary }}
+                          className="flex flex-col"
                         >
                           <label>
                             <span className="font-bold">Private</span> - visible
@@ -179,7 +181,8 @@ const NewProject: NextPageWithLayout = () => {
                     {
                       label: (
                         <div
-                          className={`flex flex-row items-center gap-2 text-[${token.colorTextSecondary}]`}
+                          style={{ color: token.colorTextSecondary }}
+                          className="flex flex-row items-center gap-2"
                         >
                           <label>Private</label>
                         </div>
@@ -189,7 +192,8 @@ const NewProject: NextPageWithLayout = () => {
                     {
                       label: (
                         <div
-                          className={`flex flex-row items-center gap-2 text-[${token.colorTextSecondary}]`}
+                          style={{ color: token.colorTextSecondary }}
+                          className="flex flex-row items-center gap-2"
                         >
                           <label>Public</label>
                         </div>
@@ -212,7 +216,8 @@ const NewProject: NextPageWithLayout = () => {
                   <Button
                     type="ghost"
                     shape="circle"
-                    className={`flex items-center justify-center text-[${token.colorTextSecondary}]`}
+                    className="flex items-center justify-center"
+                    style={{ color: token.colorTextSecondary }}
                     onClick={showDrawer}
                     icon={<PlusCircleOutlined />}
                   />
@@ -221,7 +226,8 @@ const NewProject: NextPageWithLayout = () => {
                 {members.map((member) => (
                   <div
                     key={member.id}
-                    className={`flex items-center justify-between border border-x-0 border-t-0 border-[${token.colorTextSecondary}]`}
+                    style={{ borderColor: token.colorTextSecondary }}
+                    className="flex items-center justify-between border border-x-0 border-t-0"
                   >
                     <Typography.Paragraph
                       className="py-4"
@@ -249,13 +255,15 @@ const NewProject: NextPageWithLayout = () => {
               <Form.Item style={{ margin: 0 }}>
                 <div className="justify-left flex h-full w-full flex-row items-center gap-4">
                   <Button
-                    className={`flex items-center justify-center text-[${token.colorTextSecondary}]`}
+                    style={{ color: token.colorTextSecondary }}
+                    className="flex items-center justify-center"
                     htmlType="submit"
                   >
                     Create
                   </Button>
                   <Button
-                    className={`flex items-center justify-center text-[${token.colorTextSecondary}]`}
+                    style={{ color: token.colorTextSecondary }}
+                    className="flex items-center justify-center"
                     onClick={onCancel}
                   >
                     Cancel
